@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -18,7 +12,38 @@ model User {
   email     String   @unique
   userName  String
   password  String
+  image     String
   Status    String   @default("not-admin")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Subscriber {
+  id                 Int               @id @unique @default(autoincrement())
+  name               String
+  job                String
+  address            String
+  tel                String
+  subStart           String
+  subDuration        String
+  remainingSessions  String
+  subEnd             String
+  imageUrl           String
+  qrCode             String            @unique
+  token              String            @unique
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  subscriptionInfoId Int            
+  subscriptionInfo   subscriptionInfo  @relation(fields: [subscriptionInfoId], references: [id])
+}
+
+model subscriptionInfo {
+  id             Int          @id @unique @default(autoincrement())
+  duration       Int
+  typeOfDuration String
+  name           String
+  price          Int
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  subscribers    Subscriber[]
 }

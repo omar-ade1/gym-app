@@ -1,0 +1,1 @@
+export const ROW_IN_PAGE = 6

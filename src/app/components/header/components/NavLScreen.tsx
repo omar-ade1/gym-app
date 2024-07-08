@@ -11,12 +11,12 @@ const NavLScreen: React.FC<Props> = ({ pathname }) => {
       <ul className={`flex items-center`}>
         <li>
           <Link className={`link-header transition-hover ${pathname == "/" ? "bg-[#0070BB] text-white" : ""}`} href={"/"}>
-            الرئيسية
+          الاشتراكات
           </Link>
         </li>
         <li>
-          <Link className={`link-header transition-hover ${pathname == "/dd" ? "bg-[#0070BB] text-white" : ""}`} href={"#"}>
-            الادمن
+          <Link className={`link-header transition-hover ${pathname == "/dd" ? "bg-[#0070BB] text-white" : ""}`} href={"/manageSubscriptions"}>
+          إدارة الاشتراكات
           </Link>
         </li>
         <li>

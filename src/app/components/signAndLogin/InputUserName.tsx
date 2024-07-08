@@ -12,7 +12,7 @@ const InputUserName: React.FC<Props> = ({ userName, setUserName }) => {
     <Input
       value={userName}
       onChange={(e) => setUserName(e.target.value)}
-      required
+      // required
       isRequired
       className="w-[400px] block max-w-full mb-5"
       type="text"

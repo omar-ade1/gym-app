@@ -12,7 +12,7 @@ const InputEmail: React.FC<Props> = ({ email, setEmail }) => {
     <Input
       value={email}
       onChange={(e) => setEmail(e.target.value)}
-      required
+      // required
       isRequired
       className="w-[400px] block max-w-full"
       type="email"

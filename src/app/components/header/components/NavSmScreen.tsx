@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@nextui-org/react";
+import { jwtPayLoad } from "@/app/utils/interfaces";
 
 const variantNav = {
   hidden: {
@@ -45,11 +46,12 @@ const variantLink = {
 };
 
 interface Props {
+  token: string | undefined;
   isMenuOpen: boolean;
   pathname: string;
 }
 
-const NavSmScreen: React.FC<Props> = ({ isMenuOpen, pathname }) => {
+const NavSmScreen: React.FC<Props> = ({ token, isMenuOpen, pathname }) => {
   return (
     <AnimatePresence>
       {isMenuOpen && (
@@ -65,7 +67,7 @@ const NavSmScreen: React.FC<Props> = ({ isMenuOpen, pathname }) => {
                 }`}
                 href={"/"}
               >
-                الرئيسية
+                الاشتراكات
               </Link>
             </motion.li>
             <motion.li variants={variantLink} className=" w-full h-full">
@@ -73,9 +75,9 @@ const NavSmScreen: React.FC<Props> = ({ isMenuOpen, pathname }) => {
                 className={`link-header transition-hover flex justify-center items-center w-full h-full border-b border-[#323232] rounded-xl ${
                   pathname == "/admin" ? "bg-[#0070BB]" : ""
                 }`}
-                href={"#"}
+                href={"/manageSubscriptions"}
               >
-                الادمن
+                إدارة الاشتراكات
               </Link>
             </motion.li>
             <motion.li variants={variantLink} className=" w-full h-full">
@@ -108,14 +110,16 @@ const NavSmScreen: React.FC<Props> = ({ isMenuOpen, pathname }) => {
                 الاشتراكات
               </Link>
             </motion.li>
-            <motion.li variants={variantLink} className="hidden xxsm:flex flex-col space-y-3">
-              <Button className="w-full flex justify-center items-center" as={Link} href="/login" color="primary" variant="solid">
-                تسجيل الدخول
-              </Button>
-              <Button className="w-full flex justify-center items-center" as={Link} href="/sign-up" color="primary" variant="ghost">
-                انشاء حساب
-              </Button>
-            </motion.li>
+            {!token && (
+              <motion.li variants={variantLink} className="hidden xxsm:flex flex-col space-y-3">
+                <Button className="w-full flex justify-center items-center" as={Link} href="/login" color="primary" variant="solid">
+                  تسجيل الدخول
+                </Button>
+                <Button className="w-full flex justify-center items-center" as={Link} href="/sign-up" color="primary" variant="ghost">
+                  انشاء حساب
+                </Button>
+              </motion.li>
+            )}
           </motion.ul>
         </motion.nav>
       )}

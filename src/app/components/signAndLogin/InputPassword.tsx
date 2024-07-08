@@ -17,7 +17,7 @@ const InputPassword: React.FC<Props> = ({ password, setPassword, isVisible, togg
     <Input
       label="كلمة السر"
       variant="faded"
-      required
+      // required
       isRequired
       value={password}
       onChange={(e) => setPassword(e.target.value)}

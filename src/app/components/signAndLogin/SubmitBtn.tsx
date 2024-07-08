@@ -2,12 +2,13 @@ import { Button } from "@nextui-org/react";
 import React from "react";
 
 interface Props {
-  btnText : string
+  loading: boolean;
+  btnText: string;
 }
 
-const SubmitBtn:React.FC<Props> = ({btnText}) => {
+const SubmitBtn: React.FC<Props> = ({ loading, btnText }) => {
   return (
-    <Button variant="shadow" size="lg" fullWidth color="primary" type="submit" className="mt-5 max-w-full">
+    <Button isLoading={loading} variant="shadow" size="lg" fullWidth color="primary" type="submit" className="mt-5 max-w-full">
       {btnText}
     </Button>
   );

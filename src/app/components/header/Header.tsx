@@ -1,5 +1,6 @@
 "use client";
-import { Button } from "@nextui-org/react";
+
+import { Avatar, Button } from "@nextui-org/react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import "./header.css";
@@ -8,7 +9,18 @@ import Logo from "./components/Logo";
 import NavLScreen from "./components/NavLScreen";
 import NavSmScreen from "./components/NavSmScreen";
 
-const Header = () => {
+interface dataToken {
+  email: string;
+  userName: string;
+  image: string;
+}
+
+interface Props {
+  token: string | undefined;
+  verfiyToken: dataToken | undefined;
+}
+
+const Header: React.FC<Props> = ({ verfiyToken, token }) => {
   // This For Check The Menu Is Open Or Not And It's Boolean
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
@@ -70,26 +82,31 @@ const Header = () => {
 
           <NavLScreen pathname={pathname} />
 
-          <NavSmScreen isMenuOpen={isMenuOpen} pathname={pathname} />
+          <NavSmScreen token={token} isMenuOpen={isMenuOpen} pathname={pathname} />
 
-          <div className="auth flex items-center gap-2 xxsm:hidden">
-            <Button as={Link} href="/login" color="primary" variant="solid">
-              تسجيل الدخول
-            </Button>
-            <Button as={Link} href="/sign-up" color="primary" variant="ghost">
-              انشاء حساب
-            </Button>
-          </div>
+          {!token ? (
+            <div className="auth flex items-center gap-2 xxsm:hidden">
+              <Button as={Link} href="/login" color="primary" variant="solid">
+                تسجيل الدخول
+              </Button>
+              <Button as={Link} href="/sign-up" color="primary" variant="ghost">
+                انشاء حساب
+              </Button>
+            </div>
+          ) : (
+            <Avatar as={Link} href={"/profile"} className="xxsm:hidden" isBordered color="default" src={verfiyToken?.image} />
+          )}
 
           {/* icon for small screen */}
-          <div onClick={() => setIsMenuOpen(!isMenuOpen)} className={`${isMenuOpen ? "menuOpen" : "menuClose"} icon hidden xxsm:!block`}>
+          <div onClick={() => setIsMenuOpen(!isMenuOpen)} className={`${isMenuOpen ? "menuOpen" : "menuClose"} icon hidden xxsm:!flex items-center`}>
+            {token && <Avatar as={Link} href={"/profile"} className="xxsm:block hidden" isBordered color="default" src={verfiyToken?.image} />}
             <label className="hamburger">
               <svg viewBox="0 0 32 32">
                 <path
-                  className="line line-top-bottom"
+                  className={`line ${isMenuOpen ? "dark:stroke-red-600" : "dark:stroke-white"}  line-top-bottom`}
                   d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22"
                 ></path>
-                <path className="line" d="M7 16 27 16"></path>
+                <path className={`line ${isMenuOpen ? "dark:stroke-red-600" : "dark:stroke-white"}`} d="M7 16 27 16"></path>
               </svg>
             </label>
           </div>
